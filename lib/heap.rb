@@ -44,8 +44,17 @@ class BinaryMinHeap
     prc ||= Proc.new { |el1, el2| el1 <=> el2 }
     parent = array[parent_idx]
 
+    children_idx = BinaryMinHeap.child_indices(len, parent_idx)
+    children = children_idx.map {|idx| array[idx]}
 
+    # child_idx = nil
+    if children.length == 1
+      child_idx = children_idx[0]
+    else
+      child_idx = prc.call(children[0], children[1]) < 0 ? children_idx[0] : children_idx[1]
+    end
 
+    if prc.call(array[parent_idx], array[child_idx])
 
     # array.each_with_index do |el, idx|
     #     child_indices = BinaryMinHeap.child_indices(len, idx)
