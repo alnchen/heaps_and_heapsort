@@ -42,17 +42,30 @@ class BinaryMinHeap
 
   def self.heapify_down(array, parent_idx, len = array.length, &prc)
     prc ||= Proc.new { |el1, el2| el1 <=> el2 }
-    parent = array[parent_idx]
 
-    children_idx = BinaryMinHeap.child_indices(len, parent_idx)
-    children = children_idx.map {|idx| array[idx]}
+    left = child_indices(len, parent_idx)[0]
+    right = child_indices(len, parent_idx)[1]
+
+    children = []
+    children << array[left] if left
+    children << array[right] if right
+
+    if children.all? { |child| prc.call(array[parent_idx], child) <= 0 }
+      return array
+    end
+
+
+
+    #
+    # children_idx = BinaryMinHeap.child_indices(len, parent_idx)
+    # children = children_idx.map {|idx| array[idx]}
 
     child_idx = nil
     if children.length == 1
-      child_idx = children_idx[0]
+      child_idx = left
     else
       # p 'hit else'
-      child_idx = prc.call(children[0], children[1]) < 0 ? children_idx[0] : children_idx[1]
+      child_idx = prc.call(children[0], children[1]) < 0 ? left : right
     end
 
     if prc.call(array[parent_idx], array[child_idx]) <= 0
