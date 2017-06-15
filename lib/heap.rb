@@ -42,26 +42,29 @@ class BinaryMinHeap
 
   def self.heapify_down(array, parent_idx, len = array.length, &prc)
     prc ||= Proc.new { |el1, el2| el1 <=> el2 }
-    array.each_with_index do |el, idx|
-      parent = el
-        child_indices = BinaryMinHeap.child_indices(len, idx)
-        # child_indices.each do |child_idx|
-        #   if prc.call(array[idx], array[child_idx]) > 0
-        #     array[idx], array[child_idx] = array[child_idx], array[idx]
-        #   end
-        # end
+    parent = array[parent_idx]
 
-        if children.length == 1
-          
-        else
 
-        end
 
-          if prc.call(array[idx], array[child_idx]) > 0
-            array[idx], array[child_idx] = array[child_idx], array[idx]
-          end
-        end
-    end
+
+    # array.each_with_index do |el, idx|
+    #     child_indices = BinaryMinHeap.child_indices(len, idx)
+    #     # child_indices.each do |child_idx|
+    #     #   if prc.call(array[idx], array[child_idx]) > 0
+    #     #     array[idx], array[child_idx] = array[child_idx], array[idx]
+    #     #   end
+    #     # end
+    #     if child_indices.length == 1
+    #       if prc.call(array[idx], array[child_indices[0]]) > 0
+    #         array[idx], array[child_indices[0]] = array[child_indices[0]], array[idx]
+    #       end
+    #     else
+    #       lower_val_idx = prc.call(array[child_indices[0]], array[child_indices[1]]) <= 0 ? child_indices[0] : child_indices[1]
+    #       if prc.call(array[idx], array[lower_val_idx]) > 0
+    #         array[idx], array[lower_val_idx] = array[lower_val_idx], array[idx]
+    #       end
+    #     end
+    # end
   end
 
   def self.heapify_up(array, child_idx, len = array.length, &prc)
