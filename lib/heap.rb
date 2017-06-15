@@ -15,6 +15,7 @@ class BinaryMinHeap
     @store[0] = @store[-1]
     @store.pop
     BinaryMinHeap.heapify_down(@store, 0, &prc)
+    # p val
     val
   end
 
