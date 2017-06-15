@@ -3,6 +3,7 @@ class BinaryMinHeap
 
   def initialize(&prc)
     @store = []
+    @prc = prc || Proc.new { |el1, el2| el1 <=> el2 }
   end
 
   def count
@@ -40,6 +41,7 @@ class BinaryMinHeap
   end
 
   def self.heapify_down(array, parent_idx, len = array.length, &prc)
+
   end
 
   def self.heapify_up(array, child_idx, len = array.length, &prc)
