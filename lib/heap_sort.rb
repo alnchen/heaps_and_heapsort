@@ -2,14 +2,14 @@ require_relative "heap"
 
 class Array
   def heap_sort!
-    sorted = []
+    # sorted = []
     heapy = BinaryMinHeap.new
-    each do |num|
-      heapy.push(num)
+    length.times do
+      heapy.push(self.shift)
     end
-    length.times do |i|
-      sorted.push(heapy.extract)
-      self[i] = sorted[i]
+    until heapy.store.count == 0 do
+      self.push(heapy.extract)
+      # self.push(sorted[i])
     end
   end
 end
