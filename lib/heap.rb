@@ -21,7 +21,7 @@ class BinaryMinHeap
   def push(val)
     @store << val
     #until parent < val, keep swapping with parent
-    BinaryMinHeap.heapify_up(@store, @store.length - 1, count, @prc)
+    BinaryMinHeap.heapify_up(@store, @store.length - 1, @prc)
   end
 
   public
