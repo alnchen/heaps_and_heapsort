@@ -11,7 +11,11 @@ class BinaryMinHeap
   end
 
   def extract
-
+    val = @store[0]
+    @store[0] = @store[-1]
+    @store.pop
+    BinaryMinHeap.heapify_down(@store, 0, &prc)
+    val
   end
 
   def peek
