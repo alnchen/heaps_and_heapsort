@@ -47,14 +47,21 @@ class BinaryMinHeap
     children_idx = BinaryMinHeap.child_indices(len, parent_idx)
     children = children_idx.map {|idx| array[idx]}
 
-    # child_idx = nil
+    child_idx = nil
     if children.length == 1
       child_idx = children_idx[0]
     else
+      # p 'hit else'
       child_idx = prc.call(children[0], children[1]) < 0 ? children_idx[0] : children_idx[1]
     end
 
-    if prc.call(array[parent_idx], array[child_idx])
+    if prc.call(array[parent_idx], array[child_idx]) <= 0
+      return array
+    else
+      array[parent_idx], array[child_idx] = array[child_idx], array[parent_idx]
+    end
+
+    BinaryMinHeap.heapify_down(array, child_idx, len, &prc)
 
     # array.each_with_index do |el, idx|
     #     child_indices = BinaryMinHeap.child_indices(len, idx)
