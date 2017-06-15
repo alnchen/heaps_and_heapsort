@@ -21,6 +21,7 @@ class BinaryMinHeap
   def push(val)
     @store << val
     #until parent < val, keep swapping with parent
+    BinaryMinHeap.heapify_up(@store, @store.length - 1, count, @prc)
   end
 
   public
@@ -97,6 +98,19 @@ class BinaryMinHeap
   end
 
   def self.heapify_up(array, child_idx, len = array.length, &prc)
+    prc ||= Proc.new { |el1, el2| el1 <=> el2 }
 
+    return array if child_idx == 0
+
+    parent_idx = BinaryMinHeap.parent_index(child_idx)
+    child = array[child_idx]
+    parent = array[parent_idx]
+
+    if prc.call(parent, child) < 0
+      return array
+    else
+      array[child_idx], array[parent_idx] = array[parent_idx], array[child_idx]
+      BinaryMinHeap.heapify_up(array, parent_idx, len, &prc)
+    end
   end
 end
